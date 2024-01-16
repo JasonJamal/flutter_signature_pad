@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -76,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   key: _sign,
                   onSign: () {
                     final sign = _sign.currentState;
-                    debugPrint('${sign.points.length} points in the signature');
+                    debugPrint('${sign?.points.length} points in the signature');
                   },
                   backgroundPainter: _WatermarkPaint("2.0", "2.0"),
                   strokeWidth: strokeWidth,
@@ -96,10 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () async {
                         final sign = _sign.currentState;
                         //retrieve image data, do whatever you want with it (send to server, save locally...)
-                        final image = await sign.getData();
-                        var data = await image.toByteData(format: ui.ImageByteFormat.png);
-                        sign.clear();
-                        final encoded = base64.encode(data.buffer.asUint8List());
+                        final image = await sign?.getData();
+                        var data = await image?.toByteData(format: ui.ImageByteFormat.png);
+                        sign?.clear();
+                        final encoded = base64.encode(data!.buffer.asUint8List());
                         setState(() {
                           _img = data;
                         });
@@ -110,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.grey,
                       onPressed: () {
                         final sign = _sign.currentState;
-                        sign.clear();
+                        sign?.clear();
                         setState(() {
                           _img = ByteData(0);
                         });
